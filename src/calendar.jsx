@@ -40,6 +40,10 @@ var Calendar = React.createClass({
     onClickOutside: React.PropTypes.func.isRequired,
     onDropdownFocus: React.PropTypes.func,
     onSelect: React.PropTypes.func.isRequired,
+    onMonthIncrease: React.PropTypes.func,
+    onMonthDecrease: React.PropTypes.func,
+    onMonthChange: React.PropTypes.func,
+    onYearChange: React.PropTypes.func,
     openToDate: React.PropTypes.object,
     peekNextMonth: React.PropTypes.bool,
     scrollableYearDropdown: React.PropTypes.bool,
@@ -125,15 +129,19 @@ var Calendar = React.createClass({
   },
 
   increaseMonth () {
+    const inscreaseMonth = this.state.date.clone().add(1, 'month')
     this.setState({
-      date: this.state.date.clone().add(1, 'month')
+      date: inscreaseMonth
     })
+    this.props.onMonthIncrease(inscreaseMonth)
   },
 
   decreaseMonth () {
+    const descreaMonth = this.state.date.clone().subtract(1, 'month')
     this.setState({
-      date: this.state.date.clone().subtract(1, 'month')
+      date: descreaMonth
     })
+    this.props.onMonthDecrease(descreaMonth)
   },
 
   handleDayClick (day, event) {
@@ -149,15 +157,19 @@ var Calendar = React.createClass({
   },
 
   changeYear (year) {
+    const changeYear = this.state.date.clone().set('year', year)
     this.setState({
-      date: this.state.date.clone().set('year', year)
+      date: changeYear
     })
+    this.props.onYearChange(changeYear)
   },
 
   changeMonth (month) {
+    const changeMonth = this.state.date.clone().set('month', month)
     this.setState({
-      date: this.state.date.clone().set('month', month)
+      date: changeMonth
     })
+    this.props.onMonthChange(changeMonth)
   },
 
   header (date = this.state.date) {
