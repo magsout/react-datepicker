@@ -1,6 +1,7 @@
 import React from 'react'
 import hljs from 'highlight.js'
 import Default from './examples/default'
+import EventChange from './examples/event_change'
 import CodeExampleComponent from './code_example_component'
 
 import CustomDateFormat from './examples/custom_date_format'
@@ -44,6 +45,10 @@ export default React.createClass({
     {
       title: 'Default',
       component: <Default />
+    },
+    {
+      title: 'EventChange',
+      component: <EventChange />
     },
     {
       title: 'Custom date format',
