@@ -55,13 +55,17 @@ var Calendar = React.createClass({
     showYearDropdown: React.PropTypes.bool,
     startDate: React.PropTypes.object,
     todayButton: React.PropTypes.string,
-    utcOffset: React.PropTypes.number
+    utcOffset: React.PropTypes.number,
+    alwaysEnableButtonBefore: React.PropTypes.bool,
+    alwaysEnableButtonAfter: React.PropTypes.bool
   },
 
   mixins: [require('react-onclickoutside')],
 
   defaultProps: {
-    onDropdownFocus: () => {}
+    onDropdownFocus: () => {},
+    alwaysEnableButtonAfter: false,
+    alwaysEnableButtonBefore: false
   },
 
   getDefaultProps () {
@@ -193,7 +197,8 @@ var Calendar = React.createClass({
   },
 
   renderPreviousMonthButton () {
-    if (allDaysDisabledBefore(this.state.date, 'month', this.props)) {
+    const { alwaysEnableButtonBefore } = this.props
+    if (allDaysDisabledBefore(this.state.date, 'month', this.props) && !alwaysEnableButtonBefore) {
       return
     }
     return <a
@@ -202,7 +207,8 @@ var Calendar = React.createClass({
   },
 
   renderNextMonthButton () {
-    if (allDaysDisabledAfter(this.state.date, 'month', this.props)) {
+    const { alwaysEnableButtonAfter } = this.props
+    if (allDaysDisabledAfter(this.state.date, 'month', this.props) && !alwaysEnableButtonAfter ) {
       return
     }
     return <a
